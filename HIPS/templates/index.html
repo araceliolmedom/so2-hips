@@ -1,32 +1,127 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Title of the document</title>
-</head>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Boostrap CSS-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    
+    <!--<link rel="styleshhet" href="./main.css"> -->
+    <title>HIPS</title>
+    <link rel="styleshhet" href="./scss/custom.css">
 
-<body>
-    <a href="Settings">
-        <button>Settings</button>
-    </a> 
-    <a href="verificar_directorios">
-        <button>Verificar Directorio</button>
-    </a> 
-    <a href="usuarios_conectados">
-        <button>Usuarios Conectados</button>
-    </a> 
-    <a href="validacion_off">
-        <button>Autenticacion Fallida</button>
-    </a> 
-    <a href="mensajes_off">
-        <button>Ataques SMT</button>
-    </a> 
-    <button type="button" class="btn btn-outline-secondary">Verificar usuarios</button>
-    <button type="button" class="btn btn-outline-success">Verificar /var/log /secure</button>
-    <button type="button" class="btn btn-outline-danger">Verificar /var/log/messages</button>
-    <button type="button" class="btn btn-outline-warning">Warning</button>
-    <button type="button" class="btn btn-outline-info">Info</button>
-    <button type="button" class="btn btn-outline-light">Light</button>
-    <button type="button" class="btn btn-outline-dark">Dark</button>
-</body>
+  </head>
+  
+  <body>
+    <!--Encabezado-->
+    <header class="container-fluid d-flex justify-content-center" style="background-color:#4f2786">
+        <p class="text-light mb-0 p-2 fs-5 "> Sistemas Operativos 2 UCA</p>
+    </header>
+    <section class="w-50 mx-auto text-center pt-5">
+        <h1 class="p-3 fs-2 border-top border-3">
+            Sistema de prevención de intrusiones del host
+            <span class="p-3 fs-4">
+                HIPS 
+            </span>
+        </h1>
 
+    </section>
+
+    <section>
+        <!-- Botones-->
+    
+        <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Configuracion</h5>
+              <p class="card-text"> Configuracion Inicial</p>
+              <a href="Settings" class="btn btn, text-light" style="background-color:#4f2786">Realizar Verificacion</a>
+            </div>
+          </div>
+        
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Verificar Directorios</h5>
+              <p class="card-text">Verificar archivos binarios de sistema y en particular modificaciones realizadas
+                en el archivo /etc/passwd o /etc/shadow.</p>
+              <a href="verificar_directorios" class="btn btn, text-light" style="background-color:#4f2786">Realizar Verificacion</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Verificar Usuarios</h5>
+              <p class="card-text">Verificar los usuarios que están conectados. Y desde que origen.</p>
+              <a href="usuarios_conectados" class="btn btn, text-light" style="background-color:#4f2786">Realizar Verificacion</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Validacion Fallida</h5>
+              <p class="card-text">Failed Password y Authentication Failure en el /var/log /secure</p>
+              <a href="validacion_off" class="btn btn, text-light" style="background-color:#4f2786">Realizar Autenticacion</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Mensajes SMPT</h5>
+              <p class="card-text">Failed Password y Authentication Failure en el /var/log/messages</p>
+              <a href="mensajes_off" class="btn btn, text-light" style="background-color:#4f2786">Realizar Autenticacion</a>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Access Log</h5>
+              <p class="card-text">Errores de carga de páginas desde un mismo IP, como se estuvieren 
+                buscando un sitio desconocido. /var/log/httpd/access.log</p>
+              <a href="access_log" class="btn btn, text-light" style="background-color:#4f2786">Realizar Autenticacion</a>
+            </div>
+          </div>
+          
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Mail masivos</h5>
+              <p class="card-text">Envío de mails masivos desde una misma cuenta, se puede verificar la 
+                cola de mails, así como el registro del mail /var/log/maillog</p>
+              <a href="masivos_mail" class="btn btn, text-light" style="background-color:#4f2786">Realizar Autenticacion</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Verificar Scripts</h5>
+              <p class="card-text">Verificar directorio /tmp; que no hayan procesos con nombres extraños o scripts 
+                ubicados en el mismo</p>
+              <a href="verificar_tmp" class="btn btn, text-light" style="background-color:#4f2786">Realizar Autenticacion</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Ataque DDOS</h5>
+              <p class="card-text">Controlar ataque de DDOS, para esto el profesor proveerá una muestra de un 
+                registro log con ataques de DDOS para que sea procesada la información. En 
+                este caso al servicio de DNS</p>
+              <a href="ddos_dns" class="btn btn, text-light" style="background-color:#4f2786">Realizar Autenticacion</a>
+            </div>
+          </div>
+          
+    </section>
+    <!-- Pie de pagina-->
+    <footer class="container-fluid bg-dark justify-content-center mb-0 text-light">
+        <p class="p-2"></p>     
+        <h6> Proyecto de la materia Sistema Operativo 2 </h6>
+        Facultad de Ciencia y Tecnologia<br/>
+        Realizado por la alumna Araceli Olmedo Y08571<br/>
+        Profesor Felipe Sturado
+        <p class="p-2"></p>
+           
+    </footer>
+
+
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+  </body>
 </html>
