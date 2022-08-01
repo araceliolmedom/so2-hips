@@ -1,7 +1,7 @@
 import os
 from typing import Tuple
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 import subprocess
 from requests import request
 from logs.models import CheckSuma
@@ -10,10 +10,19 @@ import random
 import datetime as dt
 import sys
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
+
 
 # Create your views here.
+@login_required
+
 def home(request):
     return render(request, 'index.html')
+
+def salir (request):
+    logout(request)
+    return redirect('/')
 
 def settings_logs(request):
     Nombre='Configuracion Inicial'
