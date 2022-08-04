@@ -12,7 +12,8 @@ import sys
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
-
+from asyncio import subprocess
+import datetime
 
 # Create your views here.
 @login_required
@@ -26,12 +27,14 @@ def salir (request):
 
 def settings_logs(request):
     Nombre='Configuracion Inicial'
+    msg = 'La configuracion inicial se cargo satisfactoriamente'
     programas = []
     binarios  = ['/etc/passwd','/etc/shadow','/etc/group']
     for archivo in binarios:
         h = os.popen(f"md5sum {archivo}").read()
         c = CheckSuma(directorio = archivo , hashsuma = h )
         c.save()
+    messages.add_message(request, messages.INFO,msg)
     return render (request, 'resultados.html', {'Nombre':Nombre})
 
 
@@ -79,7 +82,7 @@ def usuarios_conectados(request):
 
     try:
         #El retorno es de tipo bytes y no str
-        cmd = subprocess.check_output("w", shell=True).decode('utf-8') 
+        cmd = subprocess.check_output("lastlog", shell=True).decode('utf-8') 
         lista_usuarios = cmd.split('\n')
         #Eliminamos la cabezera del comando
         lista_usuarios.pop(0)
@@ -182,7 +185,7 @@ def mensajes_off(request):
 '''
 def access_log(request):
     Nombre='Access log'
-    cmd = "sudo cat /var/log/httpd/access.log | grep -i 'HTTP' | grep -i '404'"
+    cmd = "sudo cat /var/log/access.log | grep -i 'HTTP' | grep -i '404'"
     resultado_cmd = os.popen(cmd).read().split('\n')
     resultado_cmd.pop(-1)
 
@@ -241,6 +244,33 @@ def masivos_mail(request):
             contador_email[email] = 1
 
     return render (request, 'resultados.html', {'Nombre':Nombre})
+
+'''
+    Mueve las herramientas Sniffer a una carpeta cuarentena
+'''
+def cuarentena(herramienta):
+    
+    cuarentena_sniffer = '/root/cuarentena/sniffer_tools'
+  
+
+    cmd = f"sudo find / -name {herramienta} -type f"
+    rutas_encontradas = os.popen(cmd).read().split('\n')
+    rutas_encontradas.pop(-1)
+    print("rutas encontradas")
+    print(rutas_encontradas)
+    for path in rutas_encontradas:
+            
+            #Procedemos a mover el arhivo 
+            new_file_name = path[1:].replace("/", "-")
+            new_path = cuarentena_sniffer + new_file_name
+
+            os.system(f"sudo mv -f {path} {new_path}")
+
+            time_actual = datetime.datetime.now()
+        
+
+    if not len(rutas_encontradas):
+        print(rutas_encontradas)
     
 
 # Verificamos si hay archivos en /tmp que contengan al comienzo #!
